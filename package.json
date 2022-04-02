@@ -1,0 +1,41 @@
+{
+  "name": "gcomp",
+  "version": "1.0.10",
+  "description": "Generate dir and file for new component React",
+  "main": "index.js",
+  "bin": {
+    "tpstart": "./dist/bundle.js"
+  },
+  "browser": {
+    "process": false,
+    "child_process": false,
+    "fs/promises": false
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "npm run build && node ./dist/bundle.js",
+    "prepublishOnly": "webpack --mode=production"
+  },
+  "keywords": [
+    "cli",
+    "tsc",
+    "typescript",
+    "init",
+    "project",
+    "scaffolding",
+    "webpack"
+  ],
+  "author": "mat.vin [Iranon]",
+  "repository": {
+    "url": "https://github.com/Federico-Partesano/gcomp"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.10",
+    "ts-loader": "^9.2.6",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-shebang-plugin": "^1.1.7"
+  }
+}
