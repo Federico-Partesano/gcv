@@ -17,16 +17,24 @@ const extensionComponent: "tsx" | "jsx" = `${
   flags.some((flag) => flag === "-js") ? "jsx" : "tsx"
 }`;
 
+const createMkdir: boolean = !flags.some((flag) => flag === "-i");
+const pathComponent =createMkdir ? `./${componentName}/${componentName}.${extensionComponent}`  :`./${componentName}.${extensionComponent}`
+const pathComponentStyle =createMkdir ? `./${componentName}/${componentName}.${extensionStyle}`  :`./${componentName}.${extensionStyle}`
+
 //- Scaffolding
 //-----------------------------
 // const buildFlag: string | undefined = flags.find((arg => arg === '-b'));
 const generateScaffolding = async () => {
   if (componentName) {
+    if(componentName[0] !== componentName[0].toUpperCase()){
+      console.log("The first letter of the component name must be uppercase!");
+      exit(1);
+    } else
     if (hasContainSimbol(componentName)) {
-      console.log("name file can't contain simbols ");
+      console.log("name file can't contain symbols!");
       exit(1);
     } else if (hasContainSpace(componentName)) {
-      console.log("name file can't contain spaces");
+      console.log("name file can't contain spaces!");
       exit(1);
     }
     //check if the directory exists (if not fs.stat throw an error and trigger the catch branch)
@@ -38,12 +46,12 @@ const generateScaffolding = async () => {
       //if the directory not exists yet
       try {
         //Source Directory
-        await mkdir(`./${componentName}`, { recursive: true });
+       createMkdir && await mkdir(`./${componentName}`, { recursive: true });
         await writeFile(
-          `./${componentName}/${componentName}.${extensionComponent}`,
+          pathComponent,
           generateComponent(extensionComponent, componentName, extensionStyle)
         );
-        await writeFile(`./${componentName}/${componentName}.${extensionStyle}`, "");
+        await writeFile(pathComponentStyle, "");
 
         //Output Directory
         // await writeFile(`./${projectName}/${srcDir}/${main.replace(/\.(js)($|\?)/, '.ts')}`, "");

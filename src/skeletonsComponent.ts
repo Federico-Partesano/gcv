@@ -1,6 +1,7 @@
 export const skeletonTs = (name: string, extensionStyle: string) => 
 `import React, { FC } from 'react';
 import "./${name}.${extensionStyle}";
+
 interface ${`I` + name} {
 
 }
