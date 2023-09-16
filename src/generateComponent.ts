@@ -1,16 +1,14 @@
-import { skeletonJs, skeletonTs } from "./skeletonsComponent";
+import { skeletondf, skeletonSetup } from "./skeletonsComponent";
 
-export const generateComponent = (
-  type: "tsx" | "jsx",
-  name: string,
-  extensionStyle: string
-) => {
-  switch (type) {
-    case "tsx":
-      return skeletonTs(name, extensionStyle);
-    case "jsx":
-      return skeletonJs(name, extensionStyle);
+export const generateComponent = (name: string, flags: string[]) => {
+  console.log('flags', flags);
+  console.log('name', name);
+  switch (true) {
+    case flags.includes('-s'):
+      return skeletonSetup();
+    case flags.includes('-d'):
+      return skeletondf(name);
     default:
-      return skeletonTs(name, extensionStyle);
+      return skeletonSetup();
   }
 };

@@ -10,27 +10,25 @@ import { hasContainSimbol, hasContainSpace } from "./regex";
 let componentName = process.argv[2];
 // let flags: string[] = process.argv.slice(3).filter(flag => /^[-][a-zA-Z]$/.test(flag));
 let flags: string[] = process.argv.filter((str) => str[0] === "-");
-const extensionStyle = `${
-  flags.some((flag) => flag === "-css") ? "css" : "scss"
-}`;
-const extensionComponent: "tsx" | "jsx" = `${
-  flags.some((flag) => flag === "-js") ? "jsx" : "tsx"
-}`;
+console.log('process.argv',process.argv);
+const extensionComponent = `vue`;
+let createMkdir: boolean = !flags.some((flag) => flag === "-i");
 
-const createMkdir: boolean = !flags.some((flag) => flag === "-i");
-const pathComponent =createMkdir ? `./${componentName}/${componentName}.${extensionComponent}`  :`./${componentName}.${extensionComponent}`
-const pathComponentStyle =createMkdir ? `./${componentName}/${componentName}.${extensionStyle}`  :`./${componentName}.${extensionStyle}`
+createMkdir = false;
+
+const pathComponent = createMkdir
+  ? `./${componentName}/${componentName}.${extensionComponent}`
+  : `./${componentName}.${extensionComponent}`;
 
 //- Scaffolding
 //-----------------------------
 // const buildFlag: string | undefined = flags.find((arg => arg === '-b'));
 const generateScaffolding = async () => {
   if (componentName) {
-    if(componentName[0] !== componentName[0].toUpperCase()){
+    if (componentName[0] !== componentName[0].toUpperCase()) {
       console.log("The first letter of the component name must be uppercase!");
       exit(1);
-    } else
-    if (hasContainSimbol(componentName)) {
+    } else if (hasContainSimbol(componentName)) {
       console.log("name file can't contain symbols!");
       exit(1);
     } else if (hasContainSpace(componentName)) {
@@ -46,12 +44,8 @@ const generateScaffolding = async () => {
       //if the directory not exists yet
       try {
         //Source Directory
-       createMkdir && await mkdir(`./${componentName}`, { recursive: true });
-        await writeFile(
-          pathComponent,
-          generateComponent(extensionComponent, componentName, extensionStyle)
-        );
-        await writeFile(pathComponentStyle, "");
+        createMkdir && (await mkdir(`./${componentName}`, { recursive: true }));
+        await writeFile(pathComponent, generateComponent(componentName, flags));
 
         //Output Directory
         // await writeFile(`./${projectName}/${srcDir}/${main.replace(/\.(js)($|\?)/, '.ts')}`, "");

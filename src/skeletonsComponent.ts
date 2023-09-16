@@ -1,27 +1,30 @@
-export const skeletonTs = (name: string, extensionStyle: string) => 
-`import React, { FC } from 'react';
-import "./${name}.${extensionStyle}";
+export const skeletonSetup = () => 
+`<script setup>
 
-interface ${`I` + name} {
+</script>
+
+<template>
+
+</template>
+<style>
+
+</style>
+`;
+
+export const skeletondf = (name: string) => 
+`<template>
+
+</template>
+
+<script>
+export default {
+name: '${name}',
+  data() {
+  return {
+  }
+},
+methods: {
 
 }
-
-const ${name}: FC<${`I` + name}> = () => {
-return (
-    <div>${name}</div>
-)
-};
-
-export default ${name};`;
-
-export const skeletonJs = (name: string, extensionStyle: string) => 
-`import React from 'react';
-import "./${name}.${extensionStyle}";
-
-const ${name} = () => {
-  return (
-    <div>${name}</div>
-  )
-};
-
-export default ${name};`;
+}
+</script>`;

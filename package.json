@@ -1,7 +1,7 @@
 {
-  "name": "gcompr",
-  "version": "1.0.1",
-  "description": "Generate dir and file for new component React",
+  "name": "gcv",
+  "version": "1.0.0",
+  "description": "Generate dir and file for new component Vue",
   "main": "index.js",
   "bin": {
     "tpstart": "./dist/bundle.js"
@@ -28,7 +28,7 @@
   ],
   "author": "Anonimo :-)",
   "repository": {
-    "url": "https://github.com/Federico-Partesano/gcomp"
+    "url": "https://github.com/Federico-Partesano/gcv"
   },
   "license": "MIT",
   "devDependencies": {
